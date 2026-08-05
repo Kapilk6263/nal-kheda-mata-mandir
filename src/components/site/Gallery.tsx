@@ -1,21 +1,21 @@
 import { useState } from "react";
 import { X } from "lucide-react";
-import havanImg from "@/assets/temple2.jpg";
-import poojaImg from "@/assets/pooja.jpg";
-import templeImg from "@/assets/temple-interior.jpg";
-import devoteesImg from "@/assets/devotees.jpg";
-import heroTemple from "@/assets/temple1.jpg";
-import panditJi from "@/assets/pandit-ji.jpg";
+import templeVideo from "@/assets/havan-video.mp4"; 
+import havanImg from "@/assets/img6.png";
+import poojaImg from "@/assets/img3.jpeg";
+import templeImg from "@/assets/img4.jpeg";
+import devoteesImg from "@/assets/img5.jpeg";
+import panditJi from "@/assets/temple2.jpg";
 import { useLanguage } from "@/lib/i18n";
 import { Reveal, SectionHeading } from "./Reveal";
 
 const gallerySources = [
-  { src: heroTemple, span: "sm:col-span-2 sm:row-span-2" },
-  { src: havanImg, span: "" },
-  { src: poojaImg, span: "" },
-  { src: templeImg, span: "" },
-  { src: devoteesImg, span: "" },
-  { src: panditJi, span: "sm:col-span-2" },
+  { src: templeVideo, span: "sm:col-span-2 sm:row-span-2", type: "video" },
+  { src: havanImg, span: "", type: "image" },
+  { src: poojaImg, span: "", type: "image" },
+  { src: templeImg, span: "", type: "image" },
+  { src: devoteesImg, span: "", type: "image" },
+  { src: panditJi, span: "sm:col-span-2", type: "image" },
 ];
 
 export function Gallery() {
@@ -37,22 +37,42 @@ export function Gallery() {
         />
 
         <div className="mt-12 grid auto-rows-[10rem] grid-cols-2 gap-3 sm:auto-rows-[12rem] sm:grid-cols-4 sm:gap-4">
-          {images.map((img, i) => (
-            <button
-              key={img.alt}
-              type="button"
-              onClick={() => setOpen(i)}
-              aria-label={img.alt}
-              className={`group overflow-hidden rounded-2xl border border-border ${img.span}`}
-            >
-              <img
-                src={img.src}
-                alt={img.alt}
-                loading="lazy"
-                className="size-full object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-            </button>
-          ))}
+          {images.map((media, i) => {
+            const wrapperClasses = `group overflow-hidden rounded-2xl border border-border ${media.span}`;
+
+            if (media.type === "video") {
+              return (
+                <div key={media.alt || i} className={wrapperClasses}>
+                  <video
+                    src={media.src}
+                    controls
+                    autoPlay     
+                    muted        
+                    loop         
+                    playsInline
+                    className="size-full object-cover"
+                  />
+                </div>
+              );
+            }
+
+            return (
+              <button
+                key={media.alt || i}
+                type="button"
+                onClick={() => setOpen(i)}
+                aria-label={media.alt}
+                className={wrapperClasses}
+              >
+                <img
+                  src={media.src}
+                  alt={media.alt}
+                  loading="lazy"
+                  className="size-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+              </button>
+            );
+          })}
         </div>
       </div>
 
@@ -71,6 +91,7 @@ export function Gallery() {
           >
             <X className="size-5" />
           </button>
+          
           <img
             src={images[open]?.src}
             alt={images[open]?.alt ?? ""}

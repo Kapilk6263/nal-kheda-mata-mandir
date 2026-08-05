@@ -2,8 +2,8 @@ import { useState } from "react";
 import { ArrowRight, MessageCircle, Phone, X } from "lucide-react";
 import havanImg from "@/assets/havan1.jpeg";
 import poojaImg from "@/assets/havan3.png";
-import templeImg from "@/assets/temple-interior.jpg";
-import devoteesImg from "@/assets/devotees.jpg";
+import templeImg from "@/assets/img2.png";
+import devoteesImg from "@/assets/img1.png";
 import { site } from "@/lib/site";
 import { useLanguage } from "@/lib/i18n";
 import { Reveal, SectionHeading } from "./Reveal";
@@ -61,7 +61,8 @@ export function Services() {
           />
 
           <div className="mt-12 grid gap-6 md:grid-cols-2">
-            {t.serviceItems.map((s, i) => (
+            {/* Added .slice(0, 4) to temporarily restrict to 4 cards */}
+            {t.serviceItems.slice(0, 4).map((s, i) => (
               <Reveal key={s.slug} delay={(i % 2) * 0.08}>
                 <article className="group h-full overflow-hidden rounded-3xl border border-border bg-background transition-all duration-500 hover:-translate-y-1 hover:shadow-lift">
                   <div className="overflow-hidden">

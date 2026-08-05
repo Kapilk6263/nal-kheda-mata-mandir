@@ -1,6 +1,6 @@
 import { MapPin, MessageCircle, Phone } from "lucide-react";
 import { motion } from "motion/react";
-import heroTemple from "@/assets/hero-temple.jpg";
+import heroTemple from "@/assets/temple3.png";
 import panditJi from "@/assets/Manish.jpeg";
 import { site } from "@/lib/site";
 import { useLanguage } from "@/lib/i18n";
