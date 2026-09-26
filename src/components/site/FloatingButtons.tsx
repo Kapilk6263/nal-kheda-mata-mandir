@@ -22,7 +22,7 @@ export function FloatingButtons() {
         aria-label={t.floating.top}
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         className={cn(
-          "grid size-11 place-items-center rounded-full border border-border bg-background text-primary shadow-soft transition-all duration-300 hover:bg-card",
+          "grid size-11 place-items-center rounded-full border border-border bg-background text-primary shadow-soft transition-all duration-300 hover:bg-card hover:border-gold",
           show ? "opacity-100" : "pointer-events-none translate-y-2 opacity-0",
         )}
       >
@@ -31,7 +31,7 @@ export function FloatingButtons() {
       <a
         href={`tel:${site.phone}`}
         aria-label={t.floating.call}
-        className="grid size-14 place-items-center rounded-full bg-primary text-primary-foreground shadow-lift transition-colors hover:bg-gold hover:text-primary"
+        className="grid size-14 place-items-center rounded-full bg-primary text-primary-foreground shadow-lift transition-all hover:bg-[#D46A00] hover:scale-105"
       >
         <Phone className="size-6" />
       </a>
@@ -40,7 +40,8 @@ export function FloatingButtons() {
         target="_blank"
         rel="noreferrer"
         aria-label={t.floating.whatsapp}
-        className="grid size-14 place-items-center rounded-full bg-gold text-primary shadow-lift transition-transform hover:scale-105"
+        className="grid size-14 place-items-center rounded-full text-white shadow-lift transition-transform hover:scale-105"
+        style={{ background: '#25D366' }}
       >
         <MessageCircle className="size-6" />
       </a>

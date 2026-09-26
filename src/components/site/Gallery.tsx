@@ -38,7 +38,7 @@ export function Gallery() {
 
         <div className="mt-12 grid auto-rows-[10rem] grid-cols-2 gap-3 sm:auto-rows-[12rem] sm:grid-cols-4 sm:gap-4">
           {images.map((media, i) => {
-            const wrapperClasses = `group overflow-hidden rounded-2xl border border-border ${media.span}`;
+            const wrapperClasses = `relative group overflow-hidden rounded-2xl border border-border ${media.span}`;
 
             if (media.type === "video") {
               return (
@@ -69,6 +69,11 @@ export function Gallery() {
                   alt={media.alt}
                   loading="lazy"
                   className="size-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                {/* Golden spiritual overlay on hover */}
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                  style={{ background: 'linear-gradient(180deg, rgb(212 175 55 / 0.25) 0%, rgb(230 126 34 / 0.35) 100%)' }}
                 />
               </button>
             );

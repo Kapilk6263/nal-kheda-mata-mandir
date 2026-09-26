@@ -1,7 +1,7 @@
 import { MapPin, MessageCircle, Phone } from "lucide-react";
 import { motion } from "motion/react";
 import heroTemple from "@/assets/temple3.png";
-import panditJi from "@/assets/Manish.jpeg";
+import panditJi from "@/assets/YoungPandit.png";
 import { site } from "@/lib/site";
 import { useLanguage } from "@/lib/i18n";
 
@@ -21,7 +21,7 @@ export function Hero() {
         className="absolute inset-0 -z-10"
         style={{
           background:
-            "linear-gradient(180deg, oklch(0.354 0.039 33.5 / 0.82) 0%, oklch(0.354 0.039 33.5 / 0.66) 45%, oklch(0.354 0.039 33.5 / 0.92) 100%)",
+            "linear-gradient(180deg, rgb(74 44 42 / 0.80) 0%, rgb(110 56 14 / 0.62) 45%, rgb(74 44 42 / 0.90) 100%)",
         }}
       />
 

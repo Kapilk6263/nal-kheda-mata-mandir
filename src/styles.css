@@ -44,41 +44,53 @@
   --color-sidebar-ring: var(--sidebar-ring);
   --font-display: "Playfair Display", Georgia, serif;
   --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
-  --shadow-soft: 0 1px 2px oklch(0.354 0.039 33.5 / 0.04), 0 12px 32px -12px oklch(0.354 0.039 33.5 / 0.14);
-  --shadow-lift: 0 2px 4px oklch(0.354 0.039 33.5 / 0.06), 0 28px 60px -24px oklch(0.354 0.039 33.5 / 0.28);
+  /* Warm golden shadows — no gray */
+  --shadow-soft: 0 1px 2px rgb(212 175 55 / 0.10), 0 12px 32px -12px rgb(212 175 55 / 0.25);
+  --shadow-lift: 0 2px 4px rgb(212 175 55 / 0.14), 0 28px 60px -24px rgb(212 175 55 / 0.38);
 }
 
 :root {
   --radius: 1rem;
-  --background: oklch(0.974 0.007 80.7);
-  --foreground: oklch(0.301 0 89.9);
-  --card: oklch(0.93 0.016 67.6);
-  --card-foreground: oklch(0.301 0 89.9);
-  --popover: oklch(0.974 0.007 80.7);
-  --popover-foreground: oklch(0.301 0 89.9);
-  --primary: oklch(0.354 0.039 33.5);
-  --primary-foreground: oklch(0.99 0.005 80);
-  --secondary: oklch(0.45 0.049 39.2);
-  --secondary-foreground: oklch(0.99 0.005 80);
-  --muted: oklch(0.93 0.016 67.6);
-  --muted-foreground: oklch(0.566 0.043 40.4);
-  --accent: oklch(0.664 0.083 77.4);
-  --accent-foreground: oklch(0.354 0.039 33.5);
-  --gold: oklch(0.664 0.083 77.4);
-  --gold-soft: oklch(0.885 0.023 71.8);
-  --destructive: oklch(0.55 0.19 27);
-  --destructive-foreground: oklch(0.99 0.005 80);
-  --border: oklch(0.885 0.023 71.8);
-  --input: oklch(0.885 0.023 71.8);
-  --ring: oklch(0.664 0.083 77.4);
-  --sidebar: oklch(0.974 0.007 80.7);
-  --sidebar-foreground: oklch(0.301 0 89.9);
-  --sidebar-primary: oklch(0.354 0.039 33.5);
-  --sidebar-primary-foreground: oklch(0.99 0.005 80);
-  --sidebar-accent: oklch(0.93 0.016 67.6);
-  --sidebar-accent-foreground: oklch(0.354 0.039 33.5);
-  --sidebar-border: oklch(0.885 0.023 71.8);
-  --sidebar-ring: oklch(0.664 0.083 77.4);
+  /* ── Backgrounds ─────────────────────────── */
+  --background: #FFF9F0;
+  --foreground: #4A2C2A;
+  /* ── Cards ────────────────────────────────── */
+  --card: #FFF4DD;
+  --card-foreground: #4A2C2A;
+  /* ── Popover ──────────────────────────────── */
+  --popover: #FFF9F0;
+  --popover-foreground: #4A2C2A;
+  /* ── Primary – Saffron ────────────────────── */
+  --primary: #E67E22;
+  --primary-foreground: #FFF8F0;
+  /* ── Secondary – Terracotta text ─────────── */
+  --secondary: #6D4C41;
+  --secondary-foreground: #FFF8F0;
+  /* ── Muted ────────────────────────────────── */
+  --muted: #FFF4DD;
+  --muted-foreground: #6D4C41;
+  /* ── Accent – Golden ──────────────────────── */
+  --accent: #D4AF37;
+  --accent-foreground: #4A2C2A;
+  /* ── Gold tokens ──────────────────────────── */
+  --gold: #D4AF37;
+  --gold-soft: #F1DFC4;
+  /* ── Destructive ──────────────────────────── */
+  --destructive: #c0392b;
+  --destructive-foreground: #FFF8F0;
+  /* ── Borders & Inputs ─────────────────────── */
+  --border: #F1DFC4;
+  --input: #F1DFC4;
+  --ring: #D4AF37;
+  /* ── Sidebar (warm palette) ───────────────── */
+  --sidebar: #FFF9F0;
+  --sidebar-foreground: #4A2C2A;
+  --sidebar-primary: #E67E22;
+  --sidebar-primary-foreground: #FFF8F0;
+  --sidebar-accent: #FFF4DD;
+  --sidebar-accent-foreground: #4A2C2A;
+  --sidebar-border: #F1DFC4;
+  --sidebar-ring: #D4AF37;
 }
 
 @layer base {
