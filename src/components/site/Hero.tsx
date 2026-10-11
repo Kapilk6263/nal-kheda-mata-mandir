@@ -44,11 +44,12 @@ export function Hero() {
             </p>
 
             <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              {/* Call button with white text and white icon */}
               <a
                 href={`tel:${site.phone}`}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-gold px-7 py-4 text-base font-medium text-primary transition-transform hover:scale-[1.02]"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-gold px-7 py-4 text-base font-medium text-white transition-transform hover:scale-[1.02]"
               >
-                <Phone className="size-5" /> {t.hero.call}
+                <Phone className="size-5 text-white" /> {t.hero.call}
               </a>
               <a
                 href={site.whatsapp}

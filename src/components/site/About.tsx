@@ -55,7 +55,8 @@ export function About() {
         </div>
       </div>
 
-      <div className="mt-20 md:mt-28">
+      {/* --- Why Choose Us: Hidden on mobile (< md), visible on tablet/laptop (md+) --- */}
+      <div className="hidden md:block md:mt-28">
         <SectionHeading eyebrow={t.about.whyEyebrow} title={t.about.whyTitle} />
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {t.whyChooseUs.map((item, i) => (

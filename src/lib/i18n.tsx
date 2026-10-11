@@ -22,7 +22,7 @@ const en = {
     name: "Nal Kheda Mata Mandir",
     tagline: "Siddhpeeth · Nalkheda",
     deity: "Siddhpeeth Maa Baglamukhi",
-    pandit: "Pandit Manish Sharma",
+    pandit: "Pandit Jitendra Sharma",
     address:
       "Siddhpeeth Maa Baglamukhi Temple, Nalkheda, Dist. Agar Malwa, Madhya Pradesh 465445",
     hours: "Open daily · 8:00 AM – 9:00 PM · Guidance on call 24×7",
@@ -61,7 +61,7 @@ const en = {
     eyebrow: "About Pandit Ji",
     title: "A lifetime of seva at the Siddhpeeth",
     subtitle:
-      "Pandit Manish Sharma has served at the Nalkheda Siddhpeeth for over a decade, performing Havan and Anushthan for devotees across India and abroad.",
+      "Pandit Jitendra Sharma has served at the Nalkheda Siddhpeeth for over a decade, performing Havan and Anushthan for devotees across India and abroad.",
     p1: "Maa Baglamukhi is the eighth of the ten Mahavidyas — the presiding deity of stambhan shakti: silencing enemies, mastering speech and winning legal battles. The temple at Nalkheda, on the banks of the Lakhundar, is among the most revered Baglamukhi peeths in the country.",
     p2: "Rituals here follow the scriptures without shortcuts. Each Havan begins with a sankalp taken in the devotee's own name and gotra, uses the prescribed samagri, and is completed with purnahuti and aarti at the correct muhurat.",
     p3: "Our mission is simple: no fear, no pressure, no exaggerated promises. You are heard first, advised honestly, and only then guided to the ritual that actually fits your situation. Devotees commonly report visible effect within 21 to 36 days.",
@@ -289,7 +289,7 @@ const hi: Content = {
     name: "नल खेड़ा माता मंदिर",
     tagline: "सिद्धपीठ · नलखेड़ा",
     deity: "सिद्धपीठ माँ बगलामुखी",
-    pandit: "पंडित मनीष शर्मा",
+    pandit: "पंडित जितेंद्र शर्मा",
     address:
       "सिद्धपीठ माँ बगलामुखी मंदिर, नलखेड़ा, जिला आगर मालवा, मध्य प्रदेश 465445",
     hours: "प्रतिदिन खुला · प्रातः 8:00 – रात्रि 9:00 · मार्गदर्शन 24×7",

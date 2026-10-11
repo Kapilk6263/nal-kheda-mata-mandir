@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowRight, MessageCircle, Phone, X } from "lucide-react";
+import { ArrowRight, ChevronDown, MessageCircle, Phone, X } from "lucide-react";
 import havanImg from "@/assets/havan1.jpeg";
 import poojaImg from "@/assets/havan3.png";
 import templeImg from "@/assets/img2.png";
@@ -22,7 +22,15 @@ const imageMap: Record<string, string> = {
 export function Services() {
   const { t } = useLanguage();
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
+  const [selectedProblemSlug, setSelectedProblemSlug] = useState<string>("");
+
   const active = t.serviceItems.find((s) => s.slug === activeSlug) ?? null;
+
+  // Active item for the mobile dropdown card (defaults to the first problem)
+  const activeProblem =
+    t.problems.find((p) => p.slug === selectedProblemSlug) ?? t.problems[0];
+  const activeProblemService =
+    t.serviceItems.find((s) => s.slug === activeProblem?.slug) ?? null;
 
   return (
     <section id="services" className="bg-card/60 py-20 md:py-28">
@@ -33,7 +41,69 @@ export function Services() {
           subtitle={t.services.finderSubtitle}
         />
 
-        <div className="mt-12 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">
+        {/* --- Mobile View: Single card with dropdown (< md) --- */}
+        <div className="mt-8 block md:hidden">
+          <Reveal>
+            <div className="rounded-2xl border border-border bg-background p-5 shadow-soft">
+              <label
+                htmlFor="problem-select"
+                className="mb-2 block text-xs font-medium text-muted-foreground"
+              >
+                {t.services.finderEyebrow || "Select your concern"}
+              </label>
+
+              {/* Problem Selector Dropdown */}
+              <div className="relative">
+                <select
+                  id="problem-select"
+                  value={activeProblem?.slug ?? ""}
+                  onChange={(e) => setSelectedProblemSlug(e.target.value)}
+                  className="w-full appearance-none rounded-xl border border-border bg-card/60 px-4 py-3 pr-10 font-display text-base text-primary transition-colors focus:border-gold focus:outline-none"
+                >
+                  {t.problems.map((p) => (
+                    <option
+                      key={p.slug}
+                      value={p.slug}
+                      className="bg-background text-foreground"
+                    >
+                      {p.title}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 size-4 -translate-y-1/2 text-gold" />
+              </div>
+
+              {/* Dynamic content showing the recommended pooja */}
+              {activeProblem && (
+                <div className="mt-4 border-t border-border/80 pt-4">
+                  <span className="block text-xs text-muted-foreground">
+                    Recommended Pooja
+                  </span>
+
+                  <button
+                    type="button"
+                    onClick={() => setActiveSlug(activeProblem.slug)}
+                    className="mt-2 flex w-full items-center justify-between rounded-xl border border-border/80 bg-card/30 p-4 text-left transition-all hover:border-gold hover:shadow-soft"
+                  >
+                    <div>
+                      <span className="block font-display text-base font-medium text-primary">
+                        {activeProblemService?.title ?? activeProblem.title}
+                      </span>
+                      <span className="mt-1 flex items-center gap-1 text-xs text-gold">
+                        {t.services.knowMore || "Know More"}{" "}
+                        <ArrowRight className="size-3.5" />
+                      </span>
+                    </div>
+                    <ArrowRight className="size-4 shrink-0 text-gold" />
+                  </button>
+                </div>
+              )}
+            </div>
+          </Reveal>
+        </div>
+
+        {/* --- Laptop & Desktop View: Original Grid (md+) --- */}
+        <div className="mt-12 hidden md:grid md:grid-cols-4 gap-3 sm:gap-4">
           {t.problems.map((p, i) => (
             <Reveal key={p.title} delay={i * 0.04}>
               <button
@@ -53,6 +123,7 @@ export function Services() {
           ))}
         </div>
 
+        {/* --- Services Section --- */}
         <div className="mt-24">
           <SectionHeading
             eyebrow={t.services.eyebrow}
@@ -61,7 +132,6 @@ export function Services() {
           />
 
           <div className="mt-12 grid gap-6 md:grid-cols-2">
-            {/* Added .slice(0, 4) to temporarily restrict to 4 cards */}
             {t.serviceItems.slice(0, 4).map((s, i) => (
               <Reveal key={s.slug} delay={(i % 2) * 0.08}>
                 <article className="group h-full overflow-hidden rounded-3xl border border-border bg-background transition-all duration-500 hover:-translate-y-1 hover:shadow-lift">
@@ -95,6 +165,7 @@ export function Services() {
         </div>
       </div>
 
+      {/* --- Modal Dialog --- */}
       {active ? (
         <div
           className="fixed inset-0 z-[60] flex items-end justify-center bg-primary/60 p-0 backdrop-blur-sm sm:items-center sm:p-6"

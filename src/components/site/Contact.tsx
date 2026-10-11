@@ -21,7 +21,7 @@ export function Contact() {
         <Reveal>
           <div
             className="rounded-[2rem] px-6 py-14 text-center md:px-16 md:py-20"
-            style={{ background: 'linear-gradient(135deg, #4A2C2A 0%, #8A3C12 50%, #E67E22 100%)' }}
+            style={{ background: "#8A3C12" }}
           >
             <p className="text-[0.7rem] tracking-[0.28em] text-gold uppercase">
               {t.contact.eyebrow}
@@ -33,18 +33,19 @@ export function Contact() {
               {t.contact.subtitle}
             </p>
             <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+              {/* Call button with white text and white icon */}
               <a
                 href={`tel:${site.phone}`}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-gold px-7 py-4 text-base font-medium text-primary transition-transform hover:scale-[1.02]"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-gold px-7 py-4 text-base font-medium text-white transition-transform hover:scale-[1.02]"
               >
-                <Phone className="size-5" /> {t.contact.call}
+                <Phone className="size-5 text-white" /> {t.contact.call}
               </a>
               <a
                 href={site.whatsapp}
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 text-base font-medium text-white transition-transform hover:scale-[1.02]"
-                style={{ background: '#25D366' }}
+                style={{ background: "#25D366" }}
               >
                 <MessageCircle className="size-5" /> {t.contact.whatsapp}
               </a>
@@ -103,32 +104,32 @@ export function Contact() {
         </div>
       </section>
 
-      <footer style={{ background: '#8A3C12' }} className="border-t border-border">
+      <footer style={{ background: "#8A3C12" }} className="border-t border-border">
         <div className="mx-auto max-w-6xl px-5 py-14">
           <div className="grid gap-10 md:grid-cols-4">
             <div className="md:col-span-2">
               <div className="flex items-center gap-3">
                 <span
                   className="grid size-10 place-items-center rounded-full border border-gold/40 font-display text-lg"
-                  style={{ background: 'rgb(255 248 240 / 0.12)', color: '#F4C542' }}
+                  style={{ background: "rgb(255 248 240 / 0.12)", color: "#F4C542" }}
                   aria-hidden
                 >
                   ॐ
                 </span>
-                <span className="font-display text-lg" style={{ color: '#FFF8F0' }}>
+                <span className="font-display text-lg" style={{ color: "#FFF8F0" }}>
                   {t.brand.name}
                 </span>
               </div>
-              <p className="mt-4 max-w-sm text-sm leading-relaxed" style={{ color: 'rgb(255 248 240 / 0.75)' }}>
+              <p className="mt-4 max-w-sm text-sm leading-relaxed" style={{ color: "rgb(255 248 240 / 0.75)" }}>
                 {t.contact.footerAbout}
               </p>
             </div>
 
             <nav aria-label={t.contact.quickLinks}>
-              <h3 className="text-sm font-medium" style={{ color: '#F4C542' }}>
+              <h3 className="text-sm font-medium" style={{ color: "#F4C542" }}>
                 {t.contact.quickLinks}
               </h3>
-              <ul className="mt-4 space-y-2 text-sm" style={{ color: 'rgb(255 248 240 / 0.70)' }}>
+              <ul className="mt-4 space-y-2 text-sm" style={{ color: "rgb(255 248 240 / 0.70)" }}>
                 {quickLinks.map((l) => (
                   <li key={l.id}>
                     <a href={`#${l.id}`} className="hover:text-gold transition-colors">
@@ -140,10 +141,10 @@ export function Contact() {
             </nav>
 
             <div>
-              <h3 className="text-sm font-medium" style={{ color: '#F4C542' }}>
+              <h3 className="text-sm font-medium" style={{ color: "#F4C542" }}>
                 {t.contact.servicesTitle}
               </h3>
-              <ul className="mt-4 space-y-2 text-sm" style={{ color: 'rgb(255 248 240 / 0.70)' }}>
+              <ul className="mt-4 space-y-2 text-sm" style={{ color: "rgb(255 248 240 / 0.70)" }}>
                 {t.serviceItems.slice(0, 5).map((s) => (
                   <li key={s.slug}>
                     <a href="#services" className="hover:text-gold transition-colors">
@@ -155,9 +156,9 @@ export function Contact() {
             </div>
           </div>
 
-          <div className="my-10" style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgb(212 175 55 / 0.4), transparent)' }} />
+          <div className="my-10" style={{ height: "1px", background: "linear-gradient(90deg, transparent, rgb(212 175 55 / 0.4), transparent)" }} />
 
-          <div className="flex flex-col items-center justify-between gap-4 text-xs md:flex-row" style={{ color: 'rgb(255 248 240 / 0.55)' }}>
+          <div className="flex flex-col items-center justify-between gap-4 text-xs md:flex-row" style={{ color: "rgb(255 248 240 / 0.55)" }}>
             <p>
               © {new Date().getFullYear()} {t.brand.name}. {t.contact.rights}
             </p>

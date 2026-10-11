@@ -10,6 +10,7 @@ import { Faq } from "@/components/site/Faq";
 import { Contact } from "@/components/site/Contact";
 import { FloatingButtons } from "@/components/site/FloatingButtons";
 import { LanguageProvider } from "@/lib/i18n";
+import VisitorCounter from "@/components/site/VisitorCounter";
 
 const title = "Nal Kheda Mata Mandir | Vedic Pooja & Havan with Pandit Ji";
 const description =
@@ -42,8 +43,10 @@ function Index() {
           <Gallery />
           <Testimonials />
           <Faq />
+           <VisitorCounter />
           <Contact />
         </main>
+        
         <FloatingButtons />
       <script
         type="application/ld+json"
