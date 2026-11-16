@@ -22,7 +22,7 @@ const en = {
     name: "Nal Kheda Mata Mandir",
     tagline: "Siddhpeeth · Nalkheda",
     deity: "Siddhpeeth Maa Baglamukhi",
-    pandit: "Pandit Jitendra Sharma",
+    pandit: "Pandit Yatin Sharma",
     address:
       "Siddhpeeth Maa Baglamukhi Temple, Nalkheda, Dist. Agar Malwa, Madhya Pradesh 465445",
     hours: "Open daily · 8:00 AM – 9:00 PM · Guidance on call 24×7",
@@ -42,7 +42,7 @@ const en = {
     closeMenu: "Close menu",
   },
   hero: {
-    titleLine1: "Authentic Vedic Pooja",
+    titleLine1: "Maa Baglamukhi Pooja",
     titleLine2: "& Havan Services",
     subtitle:
       "Helping devotees with authentic Vedic rituals, spiritual guidance and personalised Pooja services — at the temple or live over video call, from anywhere in the world.",
@@ -61,7 +61,7 @@ const en = {
     eyebrow: "About Pandit Ji",
     title: "A lifetime of seva at the Siddhpeeth",
     subtitle:
-      "Pandit Jitendra Sharma has served at the Nalkheda Siddhpeeth for over a decade, performing Havan and Anushthan for devotees across India and abroad.",
+      "Pandit Yatin Sharma has served at the Nalkheda Siddhpeeth for over a decade, performing Havan and Anushthan for devotees across India and abroad.",
     p1: "Maa Baglamukhi is the eighth of the ten Mahavidyas — the presiding deity of stambhan shakti: silencing enemies, mastering speech and winning legal battles. The temple at Nalkheda, on the banks of the Lakhundar, is among the most revered Baglamukhi peeths in the country.",
     p2: "Rituals here follow the scriptures without shortcuts. Each Havan begins with a sankalp taken in the devotee's own name and gotra, uses the prescribed samagri, and is completed with purnahuti and aarti at the correct muhurat.",
     p3: "Our mission is simple: no fear, no pressure, no exaggerated promises. You are heard first, advised honestly, and only then guided to the ritual that actually fits your situation. Devotees commonly report visible effect within 21 to 36 days.",
@@ -216,12 +216,12 @@ const en = {
   },
   testimonials: [
     {
-      name: "Rajesh Verma",
+      name: "Kapil Uplawdiya",
       place: "Indore",
       text: "Our court matter had been pending for three years. Pandit Ji guided us to the Vishesh Havan and within a month the hearing finally moved in our favour.",
     },
     {
-      name: "Sunita Sharma",
+      name: "Harshit",
       place: "Delhi",
       text: "I joined the Havan by video call from Delhi. Everything was explained calmly, and the prasad and raksha sutra reached me by post in four days.",
     },
@@ -289,7 +289,7 @@ const hi: Content = {
     name: "नल खेड़ा माता मंदिर",
     tagline: "सिद्धपीठ · नलखेड़ा",
     deity: "सिद्धपीठ माँ बगलामुखी",
-    pandit: "पंडित जितेंद्र शर्मा",
+    pandit: "पंडित यतिन शर्मा",
     address:
       "सिद्धपीठ माँ बगलामुखी मंदिर, नलखेड़ा, जिला आगर मालवा, मध्य प्रदेश 465445",
     hours: "प्रतिदिन खुला · प्रातः 8:00 – रात्रि 9:00 · मार्गदर्शन 24×7",
@@ -328,7 +328,7 @@ const hi: Content = {
     eyebrow: "पंडित जी के विषय में",
     title: "सिद्धपीठ पर जीवनभर की सेवा",
     subtitle:
-      "पंडित मनीष शर्मा एक दशक से अधिक समय से नलखेड़ा सिद्धपीठ पर सेवा कर रहे हैं तथा देश-विदेश के श्रद्धालुओं हेतु हवन व अनुष्ठान संपन्न कराते हैं।",
+      "पंडित यतिन शर्मा एक दशक से अधिक समय से नलखेड़ा सिद्धपीठ पर सेवा कर रहे हैं तथा देश-विदेश के श्रद्धालुओं हेतु हवन व अनुष्ठान संपन्न कराते हैं।",
     p1: "माँ बगलामुखी दस महाविद्याओं में आठवीं हैं — स्तंभन शक्ति की अधिष्ठात्री देवी: शत्रु शमन, वाणी सिद्धि एवं वाद-विवाद में विजय की दात्री। लखुंदर नदी के तट पर स्थित नलखेड़ा मंदिर देश के सर्वाधिक पूजनीय बगलामुखी पीठों में से एक है।",
     p2: "यहाँ प्रत्येक अनुष्ठान बिना किसी संक्षेप के शास्त्रोक्त विधि से होता है। हर हवन श्रद्धालु के नाम व गोत्र से संकल्प लेकर आरंभ होता है, निर्धारित सामग्री से संपन्न होता है और शुभ मुहूर्त में पूर्णाहुति एवं आरती के साथ पूर्ण होता है।",
     p3: "हमारा उद्देश्य सरल है: न भय, न दबाव, न बड़े-बड़े वादे। पहले आपकी बात सुनी जाती है, फिर सच्चा परामर्श दिया जाता है और तभी वह अनुष्ठान बताया जाता है जो वास्तव में आपके लिए उपयुक्त है। श्रद्धालुओं के अनुभव अनुसार 21 से 36 दिनों में प्रभाव दिखाई देता है।",

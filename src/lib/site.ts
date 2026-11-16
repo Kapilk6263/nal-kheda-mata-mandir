@@ -1,10 +1,10 @@
 export const site = {
   name: "Nal Kheda Mata Mandir",
   deity: "Siddhpeeth Maa Baglamukhi",
-  pandit: "Pandit Jitendra Sharma",
-  phone: "+917354127785",
-  phoneDisplay: "+91 73541 27785",
-  email: "jitendrasharma@gmail.com",
+  pandit: "Pandit Yatin Sharma",
+  phone: "+916261522214",
+  phoneDisplay: "+91 62615 22214",
+  email: "yatinsharma480@gmail.com",
   address:
     "Siddhpeeth Maa Baglamukhi Temple, Nalkheda, Dist. Agar Malwa, Madhya Pradesh 465445",
   hours: "Open daily · 8:00 AM – 9:00 PM · Guidance on call 24×7",
@@ -13,7 +13,7 @@ export const site = {
   mapLink:
     "https://www.google.com/maps/search/?api=1&query=Baglamukhi+Temple+Nalkheda",
   whatsapp:
-    "https://wa.me/7354127785?text=Jai%20Maa%20Baglamukhi.%20I%20would%20like%20guidance%20about%20a%20Pooja%2FHavan.",
+    "https://wa.me/6261522214?text=Jai%20Maa%20Baglamukhi.%20I%20would%20like%20guidance%20about%20a%20Pooja%2FHavan.",
 };
 
 export const stats = [
