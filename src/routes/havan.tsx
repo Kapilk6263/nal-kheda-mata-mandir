@@ -5,6 +5,7 @@ import { HavanServices } from "@/components/site/HavanServices";
 import { HavanGallery } from "@/components/site/HavanGallery";
 import { HavanAbout } from "@/components/site/HavanAbout";
 import { SocialMedia } from "@/components/site/SocialMedia";
+import { HavanVisitors } from "@/components/site/HavanVisitors";
 import { FloatingButtons } from "@/components/site/FloatingButtons";
 import { LanguageProvider } from "@/lib/i18n";
 
@@ -37,6 +38,7 @@ function HavanPage() {
           <HavanGallery />
           <SocialMedia />
           <HavanAbout />
+          <HavanVisitors />
         </main>
         <FloatingButtons />
       </div>

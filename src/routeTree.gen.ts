@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as HavanRouteImport } from './routes/havan'
+import { Route as ApiHavanVisitorCountRouteImport } from './routes/api.havan-visitor-count'
 import { Route as ApiVisitorCountRouteImport } from './routes/api.visitor-count'
 
 const IndexRoute = IndexRouteImport.update({
@@ -23,6 +24,11 @@ const HavanRoute = HavanRouteImport.update({
   path: '/havan',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiHavanVisitorCountRoute = ApiHavanVisitorCountRouteImport.update({
+  id: '/api/havan-visitor-count',
+  path: '/api/havan-visitor-count',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiVisitorCountRoute = ApiVisitorCountRouteImport.update({
   id: '/api/visitor-count',
   path: '/api/visitor-count',
@@ -32,30 +38,39 @@ const ApiVisitorCountRoute = ApiVisitorCountRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/havan': typeof HavanRoute
+  '/api/havan-visitor-count': typeof ApiHavanVisitorCountRoute
   '/api/visitor-count': typeof ApiVisitorCountRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/havan': typeof HavanRoute
+  '/api/havan-visitor-count': typeof ApiHavanVisitorCountRoute
   '/api/visitor-count': typeof ApiVisitorCountRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/havan': typeof HavanRoute
+  '/api/havan-visitor-count': typeof ApiHavanVisitorCountRoute
   '/api/visitor-count': typeof ApiVisitorCountRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/havan' | '/api/visitor-count'
+  fullPaths: '/' | '/havan' | '/api/havan-visitor-count' | '/api/visitor-count'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/havan' | '/api/visitor-count'
-  id: '__root__' | '/' | '/havan' | '/api/visitor-count'
+  to: '/' | '/havan' | '/api/havan-visitor-count' | '/api/visitor-count'
+  id:
+    | '__root__'
+    | '/'
+    | '/havan'
+    | '/api/havan-visitor-count'
+    | '/api/visitor-count'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   HavanRoute: typeof HavanRoute
+  ApiHavanVisitorCountRoute: typeof ApiHavanVisitorCountRoute
   ApiVisitorCountRoute: typeof ApiVisitorCountRoute
 }
 
@@ -75,6 +90,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HavanRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/havan-visitor-count': {
+      id: '/api/havan-visitor-count'
+      path: '/api/havan-visitor-count'
+      fullPath: '/api/havan-visitor-count'
+      preLoaderRoute: typeof ApiHavanVisitorCountRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/visitor-count': {
       id: '/api/visitor-count'
       path: '/api/visitor-count'
@@ -88,6 +110,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   HavanRoute: HavanRoute,
+  ApiHavanVisitorCountRoute: ApiHavanVisitorCountRoute,
   ApiVisitorCountRoute: ApiVisitorCountRoute,
 }
 export const routeTree = rootRouteImport
