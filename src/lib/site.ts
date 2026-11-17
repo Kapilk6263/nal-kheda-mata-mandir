@@ -13,7 +13,7 @@ export const site = {
   mapLink:
     "https://www.google.com/maps/search/?api=1&query=Baglamukhi+Temple+Nalkheda",
   whatsapp:
-    "https://wa.me/6261522214?text=Jai%20Maa%20Baglamukhi.%20I%20would%20like%20guidance%20about%20a%20Pooja%2FHavan.",
+    "https://wa.me/916261522214?text=Jai%20Maa%20Baglamukhi.%20I%20would%20like%20guidance%20about%20a%20Pooja%2FHavan."
 };
 
 export const stats = [

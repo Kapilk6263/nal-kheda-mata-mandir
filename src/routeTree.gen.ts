@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as HavanRouteImport } from './routes/havan'
 import { Route as ApiVisitorCountRouteImport } from './routes/api.visitor-count'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HavanRoute = HavanRouteImport.update({
+  id: '/havan',
+  path: '/havan',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiVisitorCountRoute = ApiVisitorCountRouteImport.update({
@@ -25,27 +31,31 @@ const ApiVisitorCountRoute = ApiVisitorCountRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/havan': typeof HavanRoute
   '/api/visitor-count': typeof ApiVisitorCountRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/havan': typeof HavanRoute
   '/api/visitor-count': typeof ApiVisitorCountRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/havan': typeof HavanRoute
   '/api/visitor-count': typeof ApiVisitorCountRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/visitor-count'
+  fullPaths: '/' | '/havan' | '/api/visitor-count'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/visitor-count'
-  id: '__root__' | '/' | '/api/visitor-count'
+  to: '/' | '/havan' | '/api/visitor-count'
+  id: '__root__' | '/' | '/havan' | '/api/visitor-count'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  HavanRoute: typeof HavanRoute
   ApiVisitorCountRoute: typeof ApiVisitorCountRoute
 }
 
@@ -56,6 +66,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/havan': {
+      id: '/havan'
+      path: '/havan'
+      fullPath: '/havan'
+      preLoaderRoute: typeof HavanRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/visitor-count': {
@@ -70,6 +87,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  HavanRoute: HavanRoute,
   ApiVisitorCountRoute: ApiVisitorCountRoute,
 }
 export const routeTree = rootRouteImport
