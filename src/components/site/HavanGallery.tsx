@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect, useCallback, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import havanVideo from "@/assets/havan-video.mp4";
 import havanImg from "@/assets/havan.jpg";
@@ -25,15 +25,57 @@ const galleryItems = [
 export function HavanGallery() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const { lang } = useLanguage();
+  const [activeIndex, setActiveIndex] = useState(0);
+  const isPaused = useRef(false);
+
+  const scrollToIndex = useCallback((index: number) => {
+    const container = scrollRef.current;
+    if (!container) return;
+    const card = container.children[index] as HTMLElement | undefined;
+    if (!card) return;
+    container.scrollTo({ left: card.offsetLeft - container.offsetLeft, behavior: "smooth" });
+  }, []);
 
   const scroll = (dir: "left" | "right") => {
-    if (!scrollRef.current) return;
-    const amount = scrollRef.current.clientWidth * 0.7;
-    scrollRef.current.scrollBy({
-      left: dir === "left" ? -amount : amount,
-      behavior: "smooth",
-    });
+    const next =
+      dir === "right"
+        ? (activeIndex + 1) % galleryItems.length
+        : (activeIndex - 1 + galleryItems.length) % galleryItems.length;
+    setActiveIndex(next);
+    scrollToIndex(next);
   };
+
+  // Auto-advance every 2 s; pause on hover / touch
+  useEffect(() => {
+    const tick = setInterval(() => {
+      if (isPaused.current) return;
+      setActiveIndex((prev) => {
+        const next = (prev + 1) % galleryItems.length;
+        scrollToIndex(next);
+        return next;
+      });
+    }, 2000);
+    return () => clearInterval(tick);
+  }, [scrollToIndex]);
+
+  // Sync activeIndex when user manually scrolls
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+    const onScroll = () => {
+      const cards = Array.from(container.children) as HTMLElement[];
+      const center = container.scrollLeft + container.clientWidth / 2;
+      let closest = 0;
+      let minDist = Infinity;
+      cards.forEach((card, i) => {
+        const dist = Math.abs(card.offsetLeft + card.offsetWidth / 2 - center);
+        if (dist < minDist) { minDist = dist; closest = i; }
+      });
+      setActiveIndex(closest);
+    };
+    container.addEventListener("scroll", onScroll, { passive: true });
+    return () => container.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <section className="bg-card/60 py-12 md:py-16">
@@ -72,11 +114,15 @@ export function HavanGallery() {
           <div
             ref={scrollRef}
             className="flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-smooth pb-3 scrollbar-none"
+            onMouseEnter={() => { isPaused.current = true; }}
+            onMouseLeave={() => { isPaused.current = false; }}
+            onTouchStart={() => { isPaused.current = true; }}
+            onTouchEnd={() => { isPaused.current = false; }}
           >
             {galleryItems.map((item, i) => (
               <div
                 key={i}
-                className="w-[70vw] max-w-[280px] flex-shrink-0 snap-start overflow-hidden rounded-2xl border border-border sm:w-[45vw] sm:max-w-[320px]"
+                className="w-[calc(100vw-2.5rem)] max-w-full flex-shrink-0 snap-start overflow-hidden rounded-2xl border border-border sm:w-[45vw] sm:max-w-[320px]"
               >
                 {item.type === "video" ? (
                   <video
@@ -96,6 +142,25 @@ export function HavanGallery() {
                   />
                 )}
               </div>
+            ))}
+          </div>
+
+          {/* Dot indicators */}
+          <div className="mt-4 flex justify-center gap-1.5" role="tablist" aria-label="Gallery position">
+            {galleryItems.map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                role="tab"
+                aria-selected={i === activeIndex}
+                aria-label={`Go to slide ${i + 1}`}
+                onClick={() => { setActiveIndex(i); scrollToIndex(i); }}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  i === activeIndex
+                    ? "w-5 bg-primary"
+                    : "w-1.5 bg-border hover:bg-muted-foreground"
+                }`}
+              />
             ))}
           </div>
         </div>

@@ -53,8 +53,8 @@ const en = {
   },
   stats: [
     { value: "10+", label: "Years Experience" },
-    { value: "500+", label: "Poojas Performed" },
-    { value: "1000+", label: "Happy Devotees" },
+    { value: "200+", label: "Poojas Performed" },
+    { value: "5000+", label: "Happy Devotees" },
     { value: "24×7", label: "Guidance" },
   ],
   about: {
@@ -320,8 +320,8 @@ const hi: Content = {
   },
   stats: [
     { value: "10+", label: "वर्षों का अनुभव" },
-    { value: "500+", label: "पूजाएँ संपन्न" },
-    { value: "1000+", label: "संतुष्ट श्रद्धालु" },
+    { value: "200+", label: "पूजाएँ संपन्न" },
+    { value: "500+", label: "संतुष्ट श्रद्धालु" },
     { value: "24×7", label: "मार्गदर्शन" },
   ],
   about: {

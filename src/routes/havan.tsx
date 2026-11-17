@@ -4,6 +4,7 @@ import { HavanQuickActions } from "@/components/site/HavanQuickActions";
 import { HavanServices } from "@/components/site/HavanServices";
 import { HavanGallery } from "@/components/site/HavanGallery";
 import { HavanAbout } from "@/components/site/HavanAbout";
+import { SocialMedia } from "@/components/site/SocialMedia";
 import { FloatingButtons } from "@/components/site/FloatingButtons";
 import { LanguageProvider } from "@/lib/i18n";
 
@@ -30,10 +31,11 @@ function HavanPage() {
     <LanguageProvider>
       <div className="min-h-screen bg-background">
         <main>
-          <Hero />
+          <Hero hideStats />
           <HavanQuickActions />
           <HavanServices />
           <HavanGallery />
+          <SocialMedia />
           <HavanAbout />
         </main>
         <FloatingButtons />

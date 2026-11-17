@@ -57,14 +57,14 @@ export function HavanServices() {
     <section className="py-12 md:py-16">
       <div className="mx-auto max-w-6xl px-5">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="eyebrow">
+          <h2 className="font-display text-4xl font-bold leading-tight text-gray-900 sm:text-5xl md:text-6xl">
             {lang === "hi" ? "हवन एवं पूजा सेवाएँ" : "Havan & Pooja Services"}
-          </p>
-          <h2 className="mt-3 text-2xl leading-tight text-primary sm:text-3xl md:text-4xl">
+          </h2>
+          <p className="mt-3 text-lg leading-relaxed text-muted-foreground sm:text-xl">
             {lang === "hi"
               ? "अपनी आवश्यकता अनुसार सेवा चुनें"
               : "Choose how you'd like to participate"}
-          </h2>
+          </p>
         </Reveal>
 
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

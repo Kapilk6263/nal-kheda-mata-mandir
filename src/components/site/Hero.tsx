@@ -48,7 +48,7 @@ const PUJA_SLIDES = [
   },
 ];
 
-export function Hero() {
+export function Hero({ hideStats = false }: { hideStats?: boolean }) {
   const { t } = useLanguage();
 
   // Carousel State
@@ -269,6 +269,7 @@ export function Hero() {
 
         </div>
 
+        {!hideStats && (
         <dl className="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-primary-foreground/15 bg-primary-foreground/15 md:mt-20 md:grid-cols-4">
           {t.stats.map((s) => (
             <div
@@ -287,6 +288,7 @@ export function Hero() {
             </div>
           ))}
         </dl>
+        )}
       </div>
     </section>
   );
