@@ -95,14 +95,16 @@ export function Hero({
     setIsMuted(!isMuted);
   };
 
-  // Auto-scroll every 2s (only when autoPlay prop is set)
+  // Auto-scroll: 2s for images; for videos wait until the video ends (via onEnded on the element)
   useEffect(() => {
     if (!autoPlay) return;
+    if (currentSlide.type === "video") return; // video advances via onEnded instead
+
     const timer = setInterval(() => {
       handleNext();
     }, 2000);
     return () => clearInterval(timer);
-  }, [autoPlay, handleNext]);
+  }, [autoPlay, handleNext, currentSlide]);
 
   // IntersectionObserver: reset to slide 0 when hero re-enters viewport
   useEffect(() => {
@@ -132,6 +134,7 @@ export function Hero({
   useEffect(() => {
     if (currentSlide.type === "video" && videoRef.current) {
       videoRef.current.muted = isMuted;
+      videoRef.current.currentTime = 0;
       videoRef.current.play().catch(() => {});
     }
   }, [currentIndex, isMuted, currentSlide]);
@@ -265,8 +268,9 @@ export function Hero({
                         poster={panditJi}
                         autoPlay
                         playsInline
-                        loop
+                        loop={!autoPlay}
                         muted={isMuted}
+                        onEnded={autoPlay ? handleNext : undefined}
                         className="size-full object-cover select-none pointer-events-none"
                       />
                     )}
