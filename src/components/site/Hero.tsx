@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import {
   MapPin,
   MessageCircle,
@@ -14,56 +14,74 @@ import panditJi from "@/assets/yatin.jpeg";
 import { site } from "@/lib/site";
 import { useLanguage } from "@/lib/i18n";
 
-// Carousel video items
-const PUJA_SLIDES = [
+// Slide type: either a video or an image
+export type HeroSlide =
+  | { id: number; type: "video"; url: string }
+  | { id: number; type: "image"; url: string; alt?: string };
+
+// Carousel video items (default slides used on the home page)
+const PUJA_SLIDES: HeroSlide[] = [
   {
     id: 1,
-    videoUrl:
-      "https://assets.mixkit.co/videos/preview/mixkit-fire-burning-in-a-ritual-or-prayer-41584-large.mp4",
+    type: "video",
+    url: "https://assets.mixkit.co/videos/preview/mixkit-fire-burning-in-a-ritual-or-prayer-41584-large.mp4",
   },
   {
     id: 2,
-    videoUrl:
-      "https://assets.mixkit.co/videos/preview/mixkit-hands-lighting-a-fire-in-a-ceremony-43187-large.mp4",
+    type: "video",
+    url: "https://assets.mixkit.co/videos/preview/mixkit-hands-lighting-a-fire-in-a-ceremony-43187-large.mp4",
   },
   {
     id: 3,
-    videoUrl:
-      "https://assets.mixkit.co/videos/preview/mixkit-a-close-up-of-a-candle-flame-41619-large.mp4",
+    type: "video",
+    url: "https://assets.mixkit.co/videos/preview/mixkit-a-close-up-of-a-candle-flame-41619-large.mp4",
   },
   {
     id: 4,
-    videoUrl:
-      "https://assets.mixkit.co/videos/preview/mixkit-hands-holding-a-small-candle-on-a-dark-night-42171-large.mp4",
+    type: "video",
+    url: "https://assets.mixkit.co/videos/preview/mixkit-hands-holding-a-small-candle-on-a-dark-night-42171-large.mp4",
   },
   {
     id: 5,
-    videoUrl:
-      "https://assets.mixkit.co/videos/preview/mixkit-fire-burning-in-a-ritual-or-prayer-41584-large.mp4",
+    type: "video",
+    url: "https://assets.mixkit.co/videos/preview/mixkit-fire-burning-in-a-ritual-or-prayer-41584-large.mp4",
   },
   {
     id: 6,
-    videoUrl:
-      "https://assets.mixkit.co/videos/preview/mixkit-hands-lighting-a-fire-in-a-ceremony-43187-large.mp4",
+    type: "video",
+    url: "https://assets.mixkit.co/videos/preview/mixkit-hands-lighting-a-fire-in-a-ceremony-43187-large.mp4",
   },
 ];
 
-export function Hero({ hideStats = false }: { hideStats?: boolean }) {
+export function Hero({
+  hideStats = false,
+  slides,
+  autoPlay = false,
+}: {
+  hideStats?: boolean;
+  slides?: HeroSlide[];
+  autoPlay?: boolean;
+}) {
   const { t } = useLanguage();
+
+  const activeSlides = slides && slides.length > 0 ? slides : PUJA_SLIDES;
 
   // Carousel State
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMuted, setIsMuted] = useState(true);
   const [direction, setDirection] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  // Track whether the hero is currently visible in the viewport
+  const isVisibleRef = useRef(false);
 
-  const totalSlides = PUJA_SLIDES.length;
-  const currentSlide = PUJA_SLIDES[currentIndex];
+  const totalSlides = activeSlides.length;
+  const currentSlide = activeSlides[currentIndex] ?? activeSlides[0]!
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setDirection(1);
     setCurrentIndex((prev) => (prev + 1) % totalSlides);
-  };
+  }, [totalSlides]);
 
   const handlePrev = () => {
     setDirection(-1);
@@ -77,12 +95,46 @@ export function Hero({ hideStats = false }: { hideStats?: boolean }) {
     setIsMuted(!isMuted);
   };
 
+  // Auto-scroll every 2s (only when autoPlay prop is set)
   useEffect(() => {
-    if (videoRef.current) {
+    if (!autoPlay) return;
+    const timer = setInterval(() => {
+      handleNext();
+    }, 2000);
+    return () => clearInterval(timer);
+  }, [autoPlay, handleNext]);
+
+  // IntersectionObserver: reset to slide 0 when hero re-enters viewport
+  useEffect(() => {
+    if (!autoPlay) return;
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const wasVisible = isVisibleRef.current;
+        const nowVisible = entry?.isIntersecting ?? false;
+        isVisibleRef.current = nowVisible;
+
+        // Re-entered viewport (scrolled back up / revisit) → reset to first slide
+        if (nowVisible && !wasVisible) {
+          setDirection(0);
+          setCurrentIndex(0);
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, [autoPlay]);
+
+  useEffect(() => {
+    if (currentSlide.type === "video" && videoRef.current) {
       videoRef.current.muted = isMuted;
       videoRef.current.play().catch(() => {});
     }
-  }, [currentIndex, isMuted]);
+  }, [currentIndex, isMuted, currentSlide]);
 
   // Subtle, controlled shake animation (fires on load, then every 2s)
   const shakeAnimation = {
@@ -100,7 +152,7 @@ export function Hero({ hideStats = false }: { hideStats?: boolean }) {
   };
 
   return (
-    <section id="home" className="relative isolate overflow-hidden">
+    <section id="home" ref={sectionRef} className="relative isolate overflow-hidden">
       <img
         src={heroTemple}
         alt="Nal Kheda Mata Mandir temple shikhara at golden hour"
@@ -200,20 +252,29 @@ export function Hero({ hideStats = false }: { hideStats?: boolean }) {
                     }}
                     className="absolute inset-0 size-full cursor-grab active:cursor-grabbing"
                   >
-                    <video
-                      ref={videoRef}
-                      src={currentSlide.videoUrl}
-                      poster={panditJi}
-                      autoPlay
-                      playsInline
-                      loop
-                      muted={isMuted}
-                      className="size-full object-cover select-none pointer-events-none"
-                    />
+                    {currentSlide.type === "image" ? (
+                      <img
+                        src={currentSlide.url}
+                        alt={currentSlide.alt ?? "Havan"}
+                        className="size-full object-cover select-none pointer-events-none"
+                      />
+                    ) : (
+                      <video
+                        ref={videoRef}
+                        src={currentSlide.url}
+                        poster={panditJi}
+                        autoPlay
+                        playsInline
+                        loop
+                        muted={isMuted}
+                        className="size-full object-cover select-none pointer-events-none"
+                      />
+                    )}
                   </motion.div>
                 </AnimatePresence>
 
-                {/* Top Right Control: Mute / Voice Toggle Only */}
+                {/* Top Right Control: Mute / Voice Toggle (video slides only) */}
+                {currentSlide.type === "video" && (
                 <div className="absolute top-3 right-3 z-20">
                   <button
                     type="button"
@@ -224,6 +285,7 @@ export function Hero({ hideStats = false }: { hideStats?: boolean }) {
                     {isMuted ? <VolumeX className="size-4" /> : <Volume2 className="size-4" />}
                   </button>
                 </div>
+                )}
               </div>
 
               {/* Prev / Dots / Next Controls */}
@@ -237,7 +299,7 @@ export function Hero({ hideStats = false }: { hideStats?: boolean }) {
                 </button>
 
                 <div className="flex items-center gap-1.5">
-                  {PUJA_SLIDES.map((_, idx) => (
+                  {activeSlides.map((_, idx) => (
                     <button
                       key={idx}
                       type="button"

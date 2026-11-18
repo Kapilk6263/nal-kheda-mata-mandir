@@ -1,25 +1,19 @@
 import { useRef, useEffect, useCallback, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import havanVideo from "@/assets/havan-video.mp4";
-import havanImg from "@/assets/havan.jpg";
 import templeImg from "@/assets/temple1.jpg";
-import temple2Img from "@/assets/temple2.jpg";
-import templeInteriorImg from "@/assets/temple-interior.jpg";
-import poojaImg from "@/assets/pooja.jpg";
-import devoteesImg from "@/assets/devotees.jpg";
-import panditImg from "@/assets/pandit-ji.jpg";
+import yatinSharmaImg from "@/assets/yatin_sharma.jpg";
+import img5 from "@/assets/img5.jpeg";
+import matajiImg from "@/assets/mataji.png";
 import { useLanguage } from "@/lib/i18n";
 import { Reveal } from "./Reveal";
 
 const galleryItems = [
-  { src: havanVideo, type: "video" as const, alt: "Havan ceremony at the temple" },
-  { src: havanImg, type: "image" as const, alt: "Havan fire ritual" },
-  { src: templeImg, type: "image" as const, alt: "Siddhpeeth temple exterior" },
-  { src: temple2Img, type: "image" as const, alt: "Temple view" },
-  { src: templeInteriorImg, type: "image" as const, alt: "Temple interior" },
-  { src: poojaImg, type: "image" as const, alt: "Pooja ceremony" },
-  { src: devoteesImg, type: "image" as const, alt: "Devotees at the temple" },
-  { src: panditImg, type: "image" as const, alt: "Pandit Ji" },
+  { src: havanVideo,     type: "video" as const, alt: "Havan ceremony at the temple" },
+  { src: templeImg,      type: "image" as const, alt: "Siddhpeeth temple exterior" },
+  { src: yatinSharmaImg, type: "image" as const, alt: "Pandit Yatin Sharma" },
+  { src: img5,           type: "image" as const, alt: "Temple" },
+  { src: matajiImg,      type: "image" as const, alt: "Maa Baglamukhi" },
 ];
 
 export function HavanGallery() {
