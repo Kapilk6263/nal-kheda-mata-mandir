@@ -58,7 +58,7 @@ export const Route = createFileRoute("/havan")({
 function HavanPage() {
   return (
     <LanguageProvider>
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background overflow-x-hidden">
         <HavanHeader />
         <main>
           <Hero hideStats slides={HAVAN_SLIDES} autoPlay showVisitWebsite />

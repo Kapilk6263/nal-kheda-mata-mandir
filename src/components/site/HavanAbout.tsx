@@ -4,43 +4,6 @@ import { site } from "@/lib/site";
 import { useLanguage } from "@/lib/i18n";
 import { Reveal } from "./Reveal";
 
-/* ─── Orbiting dot ─────────────────────────────────────────── */
-function OrbitDot({
-  angle,
-  radius,
-  size = 4,
-  delay = 0,
-}: {
-  angle: number;
-  radius: number;
-  size?: number;
-  delay?: number;
-}) {
-  const rad = (angle * Math.PI) / 180;
-  const x = Math.cos(rad) * radius;
-  const y = Math.sin(rad) * radius;
-  return (
-    <motion.div
-      className="absolute rounded-full bg-red-500"
-      style={{
-        width: size,
-        height: size,
-        left: "50%",
-        top: "50%",
-        marginLeft: x - size / 2,
-        marginTop: y - size / 2,
-      }}
-      animate={{ opacity: [0.3, 1, 0.3], scale: [0.8, 1.4, 0.8] }}
-      transition={{
-        duration: 2,
-        repeat: Infinity,
-        delay,
-        ease: "easeInOut",
-      }}
-    />
-  );
-}
-
 /* ─── SVG petal ring ───────────────────────────────────────── */
 function PetalRing({ r, petals = 8 }: { r: number; petals?: number }) {
   return (
@@ -61,7 +24,7 @@ function PetalRing({ r, petals = 8 }: { r: number; petals?: number }) {
             fill="none"
             stroke="#dc2626"
             strokeWidth="0.8"
-            opacity="0.7"
+            opacity="0.75"
           />
         );
       })}
@@ -69,85 +32,119 @@ function PetalRing({ r, petals = 8 }: { r: number; petals?: number }) {
   );
 }
 
-/* ─── Main Om Animation ────────────────────────────────────── */
+/* ─── Main Om Animation (Scalable & Responsive) ───────────────── */
 function OmAnimation() {
-  const orbits8 = Array.from({ length: 8 }, (_, i) => i * 45);
-  const orbits12 = Array.from({ length: 12 }, (_, i) => i * 30);
+  const orbits8 = Array.from({ length: 8 }, (_, i) => (i * 360) / 8);
+  const orbits12 = Array.from({ length: 12 }, (_, i) => (i * 360) / 12);
 
   return (
-    <div className="relative mx-auto flex items-center justify-center" style={{ width: 320, height: 320 }}>
-
-      {/* SVG mandala rings */}
+    <div className="relative mx-auto flex aspect-square w-full max-w-[270px] items-center justify-center sm:max-w-[320px]">
+      {/* Outer SVG mandala rings */}
       <motion.svg
         viewBox="0 0 200 200"
-        className="absolute inset-0 w-full h-full"
+        className="absolute inset-0 size-full"
         animate={{ rotate: 360 }}
-        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
       >
         {/* Outer dashed arc */}
-        <circle cx="100" cy="100" r="92" fill="none" stroke="#dc2626" strokeWidth="1" strokeDasharray="4 6" opacity="0.5" />
+        <circle
+          cx="100"
+          cy="100"
+          r="92"
+          fill="none"
+          stroke="#dc2626"
+          strokeWidth="1"
+          strokeDasharray="4 6"
+          opacity="0.6"
+        />
         {/* Petal ring outer */}
         <PetalRing r={78} petals={12} />
         {/* Mid solid ring */}
-        <circle cx="100" cy="100" r="62" fill="none" stroke="#dc2626" strokeWidth="0.8" opacity="0.4" />
+        <circle
+          cx="100"
+          cy="100"
+          r="63"
+          fill="none"
+          stroke="#dc2626"
+          strokeWidth="0.8"
+          opacity="0.45"
+        />
+        {/* Outer orbit dots on SVG */}
+        {orbits8.map((deg, i) => {
+          const rad = (deg * Math.PI) / 180;
+          return (
+            <circle
+              key={i}
+              cx={100 + Math.cos(rad) * 92}
+              cy={100 + Math.sin(rad) * 92}
+              r="2.5"
+              fill="#dc2626"
+              opacity="0.85"
+            />
+          );
+        })}
       </motion.svg>
 
       {/* Counter-rotating inner mandala */}
       <motion.svg
         viewBox="0 0 200 200"
-        className="absolute inset-0 w-full h-full"
+        className="absolute inset-0 size-full"
         animate={{ rotate: -360 }}
-        transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
+        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
       >
         {/* Inner petal ring */}
-        <PetalRing r={52} petals={8} />
+        <PetalRing r={50} petals={8} />
         {/* Inner dashed ring */}
-        <circle cx="100" cy="100" r="44" fill="none" stroke="#dc2626" strokeWidth="1" strokeDasharray="2 5" opacity="0.5" />
+        <circle
+          cx="100"
+          cy="100"
+          r="42"
+          fill="none"
+          stroke="#dc2626"
+          strokeWidth="1"
+          strokeDasharray="2 4"
+          opacity="0.6"
+        />
+        {/* Inner orbit dots */}
+        {orbits12.map((deg, i) => {
+          const rad = (deg * Math.PI) / 180;
+          return (
+            <circle
+              key={i}
+              cx={100 + Math.cos(rad) * 63}
+              cy={100 + Math.sin(rad) * 63}
+              r="2"
+              fill="#ef4444"
+              opacity="0.9"
+            />
+          );
+        })}
       </motion.svg>
 
-      {/* Outer orbit dots — 8 points */}
-      <div className="absolute inset-0">
-        {orbits8.map((angle, i) => (
-          <OrbitDot key={i} angle={angle} radius={68} size={5} delay={i * 0.25} />
-        ))}
-      </div>
-
-      {/* Inner orbit dots — 12 points */}
-      <div className="absolute inset-0">
-        {orbits12.map((angle, i) => (
-          <OrbitDot key={i} angle={angle} radius={48} size={3} delay={i * 0.17} />
-        ))}
-      </div>
-
-      {/* Pulsing glow rings */}
+      {/* Pulsing red glow rings */}
       <motion.div
-        className="absolute rounded-full"
-        style={{ width: 100, height: 100, left: "50%", top: "50%", marginLeft: -50, marginTop: -50 }}
-        animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.35, 0.15] }}
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <div className="size-full rounded-full bg-red-600" />
-      </motion.div>
-
+        className="absolute rounded-full bg-red-600/20"
+        style={{ width: "42%", height: "42%" }}
+        animate={{ scale: [1, 1.25, 1], opacity: [0.2, 0.45, 0.2] }}
+        transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+      />
       <motion.div
-        className="absolute rounded-full"
-        style={{ width: 72, height: 72, left: "50%", top: "50%", marginLeft: -36, marginTop: -36 }}
-        animate={{ scale: [1, 1.15, 1], opacity: [0.25, 0.5, 0.25] }}
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
-      >
-        <div className="size-full rounded-full bg-red-600" />
-      </motion.div>
+        className="absolute rounded-full bg-red-500/30"
+        style={{ width: "30%", height: "30%" }}
+        animate={{ scale: [1, 1.15, 1], opacity: [0.3, 0.6, 0.3] }}
+        transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+      />
 
       {/* Solid center circle */}
       <div
-        className="absolute rounded-full border border-gold/60 bg-background shadow-inner"
-        style={{ width: 56, height: 56, left: "50%", top: "50%", marginLeft: -28, marginTop: -28 }}
+        className="absolute rounded-full border border-red-500/70 bg-background shadow-inner"
+        style={{ width: "24%", height: "24%" }}
       />
 
-      {/* ॐ symbol — center, slightly pulsing */}
+      {/* ॐ symbol — center, glowing red */}
       <motion.span
-        className="relative z-10 select-none font-display text-4xl leading-none text-gold drop-shadow-[0_0_8px_rgba(201,151,43,0.8)]"
-        animate={{ scale: [1, 1.08, 1], opacity: [0.9, 1, 0.9] }}
+        className="relative z-10 select-none font-display text-3xl sm:text-4xl leading-none text-red-600 drop-shadow-[0_0_10px_rgba(220,38,38,0.7)]"
+        animate={{ scale: [1, 1.08, 1], opacity: [0.92, 1, 0.92] }}
         transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
       >
         ॐ
@@ -180,9 +177,8 @@ export function HavanAbout() {
         };
 
   return (
-    <section className="py-12 md:py-16">
+    <section className="py-12 md:py-16 overflow-hidden">
       <div className="mx-auto max-w-3xl px-5">
-
         {/* Heading */}
         <Reveal className="text-center">
           <p className="eyebrow">{content.eyebrow}</p>
@@ -217,7 +213,6 @@ export function HavanAbout() {
             {content.cta}
           </a>
         </Reveal>
-
       </div>
     </section>
   );
