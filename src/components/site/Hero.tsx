@@ -3,6 +3,7 @@ import {
   MapPin,
   MessageCircle,
   Phone,
+  Home,
   ChevronLeft,
   ChevronRight,
   Volume2,
@@ -57,10 +58,12 @@ export function Hero({
   hideStats = false,
   slides,
   autoPlay = false,
+  showVisitWebsite = false,
 }: {
   hideStats?: boolean;
   slides?: HeroSlide[];
   autoPlay?: boolean;
+  showVisitWebsite?: boolean;
 }) {
   const { t } = useLanguage();
 
@@ -223,6 +226,16 @@ export function Hero({
               >
                 <MapPin className="size-5" /> {t.hero.location}
               </a>
+
+              {showVisitWebsite && (
+                <a
+                  href="/"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-gold px-7 py-4 text-base font-semibold text-black shadow-md transition-all hover:bg-gold/90 hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  <Home className="size-5" />
+                  {t.nav.home === "होम" ? "मुख्य पृष्ठ" : "Visit Our Website"}
+                </a>
+              )}
             </div>
           </motion.div>
 

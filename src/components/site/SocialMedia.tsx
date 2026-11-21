@@ -83,20 +83,9 @@ export function SocialMedia() {
   return (
     <section className="py-10 md:py-14">
       <div className="mx-auto max-w-4xl px-5">
-        {/* Heading */}
-        <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="eyebrow">Social Media</p>
-          <h2 className="mt-3 text-2xl leading-tight text-primary sm:text-3xl md:text-4xl">
-            Follow Us &amp; Explore Our Videos
-          </h2>
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
-            Stay connected and explore more Havan, Pooja and temple activities.
-          </p>
-        </Reveal>
-
         {/* Cards */}
         <Reveal>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-4 sm:grid-cols-2">
             {socialLinks.map(
               ({ id, platform, handle, url, buttonLabel, Icon, accentBg, accentBorder, accentHover, btnBg }) => (
                 <a

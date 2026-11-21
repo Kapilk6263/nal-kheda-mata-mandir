@@ -1,8 +1,162 @@
 import { MessageCircle } from "lucide-react";
+import { motion } from "motion/react";
 import { site } from "@/lib/site";
 import { useLanguage } from "@/lib/i18n";
 import { Reveal } from "./Reveal";
 
+/* ─── Orbiting dot ─────────────────────────────────────────── */
+function OrbitDot({
+  angle,
+  radius,
+  size = 4,
+  delay = 0,
+}: {
+  angle: number;
+  radius: number;
+  size?: number;
+  delay?: number;
+}) {
+  const rad = (angle * Math.PI) / 180;
+  const x = Math.cos(rad) * radius;
+  const y = Math.sin(rad) * radius;
+  return (
+    <motion.div
+      className="absolute rounded-full bg-red-500"
+      style={{
+        width: size,
+        height: size,
+        left: "50%",
+        top: "50%",
+        marginLeft: x - size / 2,
+        marginTop: y - size / 2,
+      }}
+      animate={{ opacity: [0.3, 1, 0.3], scale: [0.8, 1.4, 0.8] }}
+      transition={{
+        duration: 2,
+        repeat: Infinity,
+        delay,
+        ease: "easeInOut",
+      }}
+    />
+  );
+}
+
+/* ─── SVG petal ring ───────────────────────────────────────── */
+function PetalRing({ r, petals = 8 }: { r: number; petals?: number }) {
+  return (
+    <>
+      {Array.from({ length: petals }).map((_, i) => {
+        const angle = (360 / petals) * i;
+        const rad = (angle * Math.PI) / 180;
+        const cx = 100 + Math.cos(rad) * r;
+        const cy = 100 + Math.sin(rad) * r;
+        return (
+          <ellipse
+            key={i}
+            cx={cx}
+            cy={cy}
+            rx={r * 0.18}
+            ry={r * 0.09}
+            transform={`rotate(${angle} ${cx} ${cy})`}
+            fill="none"
+            stroke="#dc2626"
+            strokeWidth="0.8"
+            opacity="0.7"
+          />
+        );
+      })}
+    </>
+  );
+}
+
+/* ─── Main Om Animation ────────────────────────────────────── */
+function OmAnimation() {
+  const orbits8 = Array.from({ length: 8 }, (_, i) => i * 45);
+  const orbits12 = Array.from({ length: 12 }, (_, i) => i * 30);
+
+  return (
+    <div className="relative mx-auto flex items-center justify-center" style={{ width: 320, height: 320 }}>
+
+      {/* SVG mandala rings */}
+      <motion.svg
+        viewBox="0 0 200 200"
+        className="absolute inset-0 w-full h-full"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+      >
+        {/* Outer dashed arc */}
+        <circle cx="100" cy="100" r="92" fill="none" stroke="#dc2626" strokeWidth="1" strokeDasharray="4 6" opacity="0.5" />
+        {/* Petal ring outer */}
+        <PetalRing r={78} petals={12} />
+        {/* Mid solid ring */}
+        <circle cx="100" cy="100" r="62" fill="none" stroke="#dc2626" strokeWidth="0.8" opacity="0.4" />
+      </motion.svg>
+
+      {/* Counter-rotating inner mandala */}
+      <motion.svg
+        viewBox="0 0 200 200"
+        className="absolute inset-0 w-full h-full"
+        animate={{ rotate: -360 }}
+        transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
+      >
+        {/* Inner petal ring */}
+        <PetalRing r={52} petals={8} />
+        {/* Inner dashed ring */}
+        <circle cx="100" cy="100" r="44" fill="none" stroke="#dc2626" strokeWidth="1" strokeDasharray="2 5" opacity="0.5" />
+      </motion.svg>
+
+      {/* Outer orbit dots — 8 points */}
+      <div className="absolute inset-0">
+        {orbits8.map((angle, i) => (
+          <OrbitDot key={i} angle={angle} radius={68} size={5} delay={i * 0.25} />
+        ))}
+      </div>
+
+      {/* Inner orbit dots — 12 points */}
+      <div className="absolute inset-0">
+        {orbits12.map((angle, i) => (
+          <OrbitDot key={i} angle={angle} radius={48} size={3} delay={i * 0.17} />
+        ))}
+      </div>
+
+      {/* Pulsing glow rings */}
+      <motion.div
+        className="absolute rounded-full"
+        style={{ width: 100, height: 100, left: "50%", top: "50%", marginLeft: -50, marginTop: -50 }}
+        animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.35, 0.15] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <div className="size-full rounded-full bg-red-600" />
+      </motion.div>
+
+      <motion.div
+        className="absolute rounded-full"
+        style={{ width: 72, height: 72, left: "50%", top: "50%", marginLeft: -36, marginTop: -36 }}
+        animate={{ scale: [1, 1.15, 1], opacity: [0.25, 0.5, 0.25] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+      >
+        <div className="size-full rounded-full bg-red-600" />
+      </motion.div>
+
+      {/* Solid center circle */}
+      <div
+        className="absolute rounded-full border border-gold/60 bg-background shadow-inner"
+        style={{ width: 56, height: 56, left: "50%", top: "50%", marginLeft: -28, marginTop: -28 }}
+      />
+
+      {/* ॐ symbol — center, slightly pulsing */}
+      <motion.span
+        className="relative z-10 select-none font-display text-4xl leading-none text-gold drop-shadow-[0_0_8px_rgba(201,151,43,0.8)]"
+        animate={{ scale: [1, 1.08, 1], opacity: [0.9, 1, 0.9] }}
+        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+      >
+        ॐ
+      </motion.span>
+    </div>
+  );
+}
+
+/* ─── Section ──────────────────────────────────────────────── */
 export function HavanAbout() {
   const { lang } = useLanguage();
 
@@ -28,6 +182,8 @@ export function HavanAbout() {
   return (
     <section className="py-12 md:py-16">
       <div className="mx-auto max-w-3xl px-5">
+
+        {/* Heading */}
         <Reveal className="text-center">
           <p className="eyebrow">{content.eyebrow}</p>
           <h2 className="mt-3 text-2xl leading-tight text-primary sm:text-3xl md:text-4xl">
@@ -35,6 +191,12 @@ export function HavanAbout() {
           </h2>
         </Reveal>
 
+        {/* Om Animation divider */}
+        <div className="mt-8 flex items-center justify-center">
+          <OmAnimation />
+        </div>
+
+        {/* Body paragraphs */}
         <Reveal>
           <div className="mt-8 space-y-4 text-sm leading-relaxed text-muted-foreground sm:text-base">
             <p>{content.p1}</p>
@@ -43,6 +205,7 @@ export function HavanAbout() {
           </div>
         </Reveal>
 
+        {/* CTA */}
         <Reveal className="mt-8 text-center">
           <a
             href={site.whatsapp}
@@ -54,6 +217,7 @@ export function HavanAbout() {
             {content.cta}
           </a>
         </Reveal>
+
       </div>
     </section>
   );

@@ -1,13 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Hero } from "@/components/site/Hero";
 import type { HeroSlide } from "@/components/site/Hero";
-import { HavanQuickActions } from "@/components/site/HavanQuickActions";
 import { HavanServices } from "@/components/site/HavanServices";
 import { HavanGallery } from "@/components/site/HavanGallery";
 import { HavanAbout } from "@/components/site/HavanAbout";
 import { SocialMedia } from "@/components/site/SocialMedia";
 import { HavanVisitors } from "@/components/site/HavanVisitors";
 import { FloatingButtons } from "@/components/site/FloatingButtons";
+import { HavanHeader } from "@/components/site/HavanHeader";
 import { LanguageProvider } from "@/lib/i18n";
 import panditJi from "@/assets/yatin.jpeg";
 import yatinSharma from "@/assets/yatin_sharma.jpg";
@@ -59,9 +59,9 @@ function HavanPage() {
   return (
     <LanguageProvider>
       <div className="min-h-screen bg-background">
+        <HavanHeader />
         <main>
-          <Hero hideStats slides={HAVAN_SLIDES} autoPlay />
-          <HavanQuickActions />
+          <Hero hideStats slides={HAVAN_SLIDES} autoPlay showVisitWebsite />
           <HavanServices />
           <HavanGallery />
           <SocialMedia />
